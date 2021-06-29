@@ -1,11 +1,11 @@
 from typing import Optional, List, Dict
 
 import docker
-from docker import client as dockerclient
+from docker.client import DockerClient
 
 
 class ApplicationContainers:
-    def __init__(self, docker_client: Optional[dockerclient] = None):
+    def __init__(self, docker_client: Optional[DockerClient] = None):
         self.docker_client = docker_client or docker.from_env()
 
     @property
@@ -21,5 +21,5 @@ class ApplicationContainers:
         for host_port_maps in port_data.values():
             for host_port in host_port_maps:
                 if host_port.get("HostIp"):
-                    return host_port["HostIp"] + ":" + host_port["HostPort"]
+                    return "http://" + host_port["HostIp"] + ":" + host_port["HostPort"]
         return None

@@ -1,0 +1,27 @@
+
+[tool.poetry]
+name = "apigateway"
+version = "0.1.0"
+description = ""
+authors = ["Amol Patel <mr.amolpatel@gmail.com>"]
+packages = [
+    {include = "backend"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+docker = "^5.0.0"
+Flask = "^2.0.1"
+requests = "^2.25.1"
+PyYAML = "^5.4.1"
+six = "^1.16.0"
+numpy = "^1.21.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+rgate = "backend.rgate:main"

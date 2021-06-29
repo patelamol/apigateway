@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 
 @dataclass
@@ -9,13 +9,6 @@ class Route:
 
 
 class ApplicationIdentifiers:
-    def __init__(self, name: str):
+    def __init__(self, name: str, labels: List[str]):
         self.name = name
-        self._labels: list[Dict[str, str]] = []
-
-    @property
-    def labels(self) -> list[Dict[str, str]]:
-        return self._labels
-
-    def add_label(self, key: str, value: str):
-        self._labels.append({"key": key, "value": value})
+        self.labels: list[Dict[str, str]] = [{"key": l.split("=")[0], "value": l.split("=")[1]} for l in labels]

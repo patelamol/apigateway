@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  payment:
+    image: nginx
+    ports:
+      - "80"
+    labels:
+      app_name: payment
+      env: production
+  orders:
+    image: nginx
+    ports:
+      - "80"
+    labels:
+      app_name: orders
+      env: production
