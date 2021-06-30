@@ -4,8 +4,8 @@ from pathlib import Path
 
 import yaml
 
-from backend.route.route_config import RouteConfig
-from backend.route.router import Router
+from apigateway.route.route_config import RouteConfig
+from apigateway.route.router import Router
 
 
 def get_parser() -> argparse.ArgumentParser:

@@ -6,9 +6,9 @@ import requests
 
 import docker
 
-from backend.applications.application_containers import ApplicationContainers
-from backend.route.routing_statistics import RoutingStatistics
-from backend.route.route_config import RouteConfig
+from apigateway.route.application_containers import ApplicationContainers
+from apigateway.route.routing_statistics import RoutingStatistics
+from apigateway.route.route_config import RouteConfig
 from flask import Flask, Response, send_from_directory
 from flask import request as flask_request
 
@@ -32,6 +32,11 @@ class Router:
         self.app.add_url_rule(
             rule="/stats",
             view_func=self.run_stats,
+            methods=["GET"],
+        )
+        self.app.add_url_rule(
+            rule="/shutdown",
+            view_func=self.shutdown_app,
             methods=["GET"],
         )
         self.app.before_request(self._before)
@@ -84,7 +89,7 @@ class Router:
         try:
             container = self.get_backend_app_container(flask_request.path)
         except ValueError as e:
-            if e.args[0] == "Invalid path_prefix":
+            if e.args[0] == f"Invalid path_prefix: {flask_request.path}":
                 self.logger.error(e)
                 return self.config.default_response
             raise
@@ -108,3 +113,10 @@ class Router:
 
     def run(self):
         self.app.run()
+
+    def shutdown_app(self):
+        func = flask_request.environ.get('werkzeug.server.shutdown')
+        if func is None:
+            raise RuntimeError('Not running with the Werkzeug Server')
+        func()
+

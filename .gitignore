@@ -1,2 +1,16 @@
+*.pyo
+*.pyc
 .venv
 .idea
+.installed.cfg
+.vscode/
+.coverage
+bin
+develop-eggs
+dist
+downloads
+eggs
+parts
+src/*.egg-info
+lib
+lib64

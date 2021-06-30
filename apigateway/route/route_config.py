@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import List, Dict, Any
 
 from flask import Response
-from backend.route.utils import Route, ApplicationIdentifiers
+from apigateway.route.utils import Route, ApplicationIdentifiers
 
 
 class RouteConfig:
@@ -31,7 +31,7 @@ class RouteConfig:
             for route_config in config_dict.get("routes")
         ]
         app_identifiers = [
-            ApplicationIdentifiers(name=backend_config["name"], labels=backend_config["match_labels"])
+            ApplicationIdentifiers(name=backend_config["name"], matched_labels=backend_config["match_labels"])
             for backend_config in config_dict.get("backends")
         ]
         default_response = Response(
